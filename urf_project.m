@@ -1,5 +1,5 @@
 function Y = project(R, S, P)
-	%%	Projetará um vetor R em perpendicular a um outro S, passando por um ponto P para melhorar na precisao da media
+	%%	Projetar um vetor R em perpendicular a um outro S, passando por um ponto P para melhorar na precisao da media
 	%%
 	%%	Argumentos para:
 	%%		R [dim x num_data] dados inseridos
