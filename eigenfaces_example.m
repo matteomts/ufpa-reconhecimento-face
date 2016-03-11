@@ -42,13 +42,13 @@ steps = 10:20:min(eigenface.num_eigenfaces,320) ;
 Q = X (:,1) ; % first image to reconstruct (each image is a column!)
 figure;
 title ('Reconstruction (AT&T Facedatabase)');
-hold on;mu
+hold on;eigenface.media
 for i =1:min(16,length(steps))
   subplot (4, 4, i);
   numEvs = steps(i);
-  P = ufr_project(Q, eigenface.W(:,1:numEvs), eigenface.media);
+  P = urf_project(Q, eigenface.W(:,1:numEvs), eigenface.media);
   R = urf_reconstrucao(eigenface.W(:,1:numEvs), P, eigenface.media);
-  comp = ufr_cvtCinza(R, width, height);
+  comp = urf_cvtCinza(R, width, height);
   imshow(comp);
   title(sprintf('%i Eigenvectors', numEvs));
 end

@@ -1,4 +1,4 @@
-funcao X = reconstrucao(P, M, ms)
+funcao X = urf_reconstrucao(P, M, ms)
     %%  Recupera X de M usando Y,  mu pode ajudar a ajustar a média.
     %%
     %%  Argumentos:
