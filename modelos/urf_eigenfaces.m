@@ -1,4 +1,4 @@
-function model = urf_eingenfaces(X, y, num_eigenfaces)
+function model = urf_eigenfaces(X, y, num_eigenfaces)
   % Faz a extração das eigenfaces das vetores em X
   %
   % espera:
