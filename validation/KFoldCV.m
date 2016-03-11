@@ -78,7 +78,7 @@ function validation_result = KFoldCV(X, y, k, fun_train, fun_predict, per_fold, 
 		%
 		if(print_debug)
 			fprintf(1,'Processing fold %d.\n', i);
-			if isoctave()
+			if urf_isoctave()
 				fflush(stdout);
 			end
 		end

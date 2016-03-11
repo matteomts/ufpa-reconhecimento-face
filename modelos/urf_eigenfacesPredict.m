@@ -7,8 +7,8 @@ function C = urf_eigenfacesPredict (model, Xtest, k)
 %sai com:
 %       C = posiçao da coluna na matriz que tem mais semelhanças com a imagem sendo analisada
 
-	Q = model.W' * (Xtest - model.mu);  %multiplica os autovetores pela matriz com as eigenfaces
-	C = knn(model.P, model.y, Q, k);    %chama a função knn usando como parâmetros:
+	Q = model.W' * (Xtest - model.media);  %multiplica os autovetores pela matriz com as eigenfaces
+	C = urf_knn(model.P, model.y, Q, k);    %chama a função knn usando como parâmetros:
                                             %model.P = matriz das imagens de treino do banco de dados 
                                             %model.y= número de imagens na matriz P
                                             %Q = resultado da multiplicação acima

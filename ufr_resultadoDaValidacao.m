@@ -1,5 +1,6 @@
-// baseado na KFoldCV.m
-// nomes de algumas funcoes ainda em ingles pois elas sao de outras equipes, mudaremos no futuro.
+% baseado na KFoldCV.m
+% nomes de algumas funcoes ainda em ingles pois elas sao de outras equipes, mudaremos no futuro.
+%Esperando esse futuro acontecer
 function resultado_validacao = ufr_resultadoDaValidacao(X, y, k, fun_train, fun_predict, per_fold, print_debug)
   %%
 	%% Realiza uma validação cruzada pelo método k-fold
