@@ -1,4 +1,4 @@
-funcao L = urf_listarArquivos(caminho)
+function L = urf_listarArquivos(caminho)
 	%% Listar todos os arquivos em uma pasta e retornar como uma matriz de c�lulas.
 	%%
 	%% Args:
