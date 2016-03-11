@@ -18,7 +18,7 @@ function model = urf_eigenfaces(X, y, num_eigenfaces)
     num_eigenfaces=size(X,2)-1;
   end
   % perform pca
-  Pca = pca(X, num_eigenfaces);
+  Pca = urf_pca(X, num_eigenfaces);
   % build model
   model.name = 'eigenfaces';
   model.D = Pca.D;
