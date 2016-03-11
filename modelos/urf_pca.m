@@ -27,14 +27,14 @@ function model = urf_pca(X, num_componentes)
   C= (Fi*Fi');	%dá a matriz de covariância de Fi
 
 % análise de pca através de decomposição em valores singulares (svd)
-  [E,D,V] = svd(C ,'econ');
+  [E,D,V] = svd(X ,'econ');
   
 % construção de model
   model.name = 'pca';
   model.D = diag(D);
-  model.D = model.D(1:num_components);
-  model.W = E(:,1:num_components);
-  model.num_componentes = num_components;
+  model.D = model.D(1:num_componentes);
+  model.W = E(:,1:num_componentes);
+  model.num_componentes = num_componentes;
   model.media = media;
 
 end
