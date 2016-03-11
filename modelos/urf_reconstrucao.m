@@ -1,34 +1,20 @@
-funcao X = urf_reconstrucao(P, M, ms)
-    %%  Recupera X de M usando Y,  mu pode ajudar a ajustar a média.
-    %%
-    %%  Argumentos:
-    %%    P [Número de componentes x Número de informações] projeção
-    %%    M [Dimenção x Número de componentes] matriz transformada
-    %%    ms [Dimenção x 1] média simples (opicional) (Somatoria de até N dividido por N)
-    %%
-    %%  Retornos:
-    %%    X [Dimenção x Núemro de informações] Informação reconstruida
-    %%
-    
-    switch nargin     %% Verifica Quantos argumentos foram passados para a função
-    case 2            %% Caso apenas dois argumentos tenham sido passados (A projeção e a matriz transformada
-                      %% Multiplica a projeção com a matriz para se recuperar a informação (face)
-         X = P * M;   
-    case 3            %% Caso três argumentos argumentos tenham entrado, a projeção, a matriz e mais a média simples
-                      %% Recupera a informação como no caso anterior e soma as informações que mais se repetem (mais marcantes)
-        X = P*M +repmat(ms,size(Y,2),1);
-    otherwise        %% Caso nem um argumento tenha sido passado retorna se 0.
-        x = 0;
-    endswitch
+% Copyright (c) Philipp Wagner. All rights reserved.
+% Licensed under the BSD license. See LICENSE file in the project root for full license information.
 
-    
-    
-    
-    
- %% Código com "if" do ByteFish   
- %%   if(nargin<3)    %%Verifica se foram passados menos de três argumentos para a função
- %%       X = W * Y;  %% Multiplica a projeção com a matriz para se recuperar a informação (face)
- %%   else
- %%       X = W*Y +repmat(mu,size(Y,2),1); %% Recupera a informação como no caso anterior e soma as informações que mais se repetem (mais marcantes)
- %%   end
- %% end
+function X = urf_reconstrucao(W, Y, media)
+    %%  Reonstruct Y from X using W, pass mu to adjust mean.
+    %%
+    %%  Args:
+    %%    Y [num_components x num_data] projection
+    %%    W [dim x num_components] transformation matrix
+    %%    mu [dim x 1] sample mean (optional)
+    %%
+    %%  Returns:
+    %%    X [dim x num_data] reconstruct data
+    %%
+    if(nargin<3)
+        X = W * Y;
+    else
+        X = W*Y +repmat(media,size(Y,2),1);
+    end
+end

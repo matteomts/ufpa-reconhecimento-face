@@ -42,7 +42,7 @@ steps = 10:20:min(eigenface.num_eigenfaces,320) ;
 Q = X (:,1) ; % first image to reconstruct (each image is a column!)
 figure;
 title ('Reconstruction (AT&T Facedatabase)');
-hold on;eigenface.media
+hold on;
 for i =1:min(16,length(steps))
   subplot (4, 4, i);
   numEvs = steps(i);
