@@ -5,7 +5,7 @@ function idx = urf_acharClasses(y, lista_de_classes)
 	min_class = min(y);
 	max_class = max(y);
   idx = [];
-	for i = list_of_classes
+	for i = lista_de_classes
 		if((i >= min_class) || (i <= max_class))
 			idx = [idx, find(y == i)];
 		end
