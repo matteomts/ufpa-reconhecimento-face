@@ -5,7 +5,7 @@
 addpath (genpath ('.'));
 
 % load data
-[X y width height names] = urf_readImages('/home/lucas/ufpa-reconhecimento-face/att_faces');
+[X y width height names] = urf_readImages('/home/cleversonahum/ufpa-reconhecimento-face/att_faces/');
 
 % Compute the model (full PCA):
 eigenface = urf_eigenfaces(X,y);
