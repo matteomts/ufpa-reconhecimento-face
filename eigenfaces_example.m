@@ -5,10 +5,10 @@
 addpath (genpath ('.'));
 
 % load data
-[X y width height names] = urf_readImages('/home/bruno/Documentos/faces/orl_faces');
+[X y width height names] = urf_readImages('/home/bruno/Documentos/git/bruno/ufpa-reconhecimento-face/att_faces');
 
 % Compute the model (full PCA):
-eigenface = eigenfaces(X,y);
+eigenface = urf_eigenfaces(X,y);
 
 % Plot the first (atmost) 16 eigenfaces:
 figure; hold on;

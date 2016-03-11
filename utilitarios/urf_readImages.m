@@ -10,14 +10,14 @@ function [X y width height names] = urf_readImages(path) %$ a principal função
 	%% Example:
 	%% [X y width height names] = read_images("./data/yalefaces")
 	%%
-	folder = list_files(path); %% folder recebe o caminho do diretório das imagens
+	folder = urf_listarArquivos(path); %% folder recebe o caminho do diretório das imagens
 	X = [];
 	y = [];
 	names = {};
 	n = 1;
 	for i=1:length(folder)
 		subject = folder{i};
-		images = list_files([path, filesep, subject]);
+		images = urf_listarArquivos([path, filesep, subject]);
 		if(length(images) == 0) %% verifica se o diretório não tem imagens
 			continue; 
 		end
