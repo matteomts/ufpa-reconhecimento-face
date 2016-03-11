@@ -15,7 +15,7 @@ figure; hold on;
 title('Eigenfaces (AT&T Facedatabase)');
 for i=1:min(16, size(eigenface.W,2))
   subplot(4,4,i);
-  comp = ufr_cvtCinza(eigenface.W(:,i), width, height);
+  comp = urf_cvtCinza(eigenface.W(:,i), width, height);
   imshow(comp);
   colormap(jet(256)); % Comment this out, if you don't want colored images
   title(sprintf('Eigenface #%i', i));

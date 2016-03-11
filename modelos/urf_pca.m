@@ -24,7 +24,7 @@ function model = urf_pca(X, num_componentes)
   
   media = mean(X,2);	%dá a média dos componentes de cada linha
   Fi = X - repmat(media, 1, size(X,2));	%subtrai a média por cada coluna de X
-  C= (Fi*Fi');	%dá a matriz de covariância de Fi
+  X= (Fi*Fi');	%dá a matriz de covariância de Fi
 
 % análise de pca através de decomposição em valores singulares (svd)
   [E,D,V] = svd(X ,'econ');
