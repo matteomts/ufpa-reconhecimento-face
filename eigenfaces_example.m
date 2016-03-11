@@ -23,14 +23,14 @@ end
 
 %% 2D plot of projection (add the classes you want):
 figure; hold on;
-for i = findclasses(eigenface.y, [1,2,3])
+for i = urf_acharClasses(eigenface.y, [1,2,3])
   text(eigenface.P(1,i), eigenface.P(2,i), num2str(eigenface.y(i)));
 end
 
 %% 3D plot of projection (first three classes, add those you want):
 if(size((eigenface.P),2) >= 3)
   figure; hold on;
-  for i = ufr_acharClasses(eigenface.y, [1,2,3])
+  for i = urf_acharClasses(eigenface.y, [1,2,3])
     % LineSpec: red dots 'r.'
     plot3(eigenface.P(1,i), eigenface.P(2,i), eigenface.P(3,i), 'r.'), view(45,-45);
     text(eigenface.P(1,i), eigenface.P(2,i), eigenface.P(3,i), num2str(eigenface.y(i)));
