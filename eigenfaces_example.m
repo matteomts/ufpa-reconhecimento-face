@@ -5,7 +5,7 @@
 addpath (genpath ('.'));
 
 % load data
-[X y width height names] = urf_readImages('/home/cleversonahum/ufpa-reconhecimento-face/att_faces/');
+[X y width height names] = urf_readImages('/home/lucas/bruno/ufpa-reconhecimento-face/att_faces/');
 
 % Compute the model (full PCA):
 eigenface = urf_eigenfaces(X,y);
@@ -38,16 +38,16 @@ if(size((eigenface.P),2) >= 3)
 end
 
 %% Plot eigenfaces reconstruction
-steps = 10:20:min(eigenface.num_components,320) ;
+steps = 10:20:min(eigenface.num_eigenfaces,320) ;
 Q = X (:,1) ; % first image to reconstruct (each image is a column!)
 figure;
 title ('Reconstruction (AT&T Facedatabase)');
-hold on;
+hold on;mu
 for i =1:min(16,length(steps))
   subplot (4, 4, i);
   numEvs = steps(i);
-  P = ufr_project(Q, eigenface.W(:,1:numEvs), eigenface.mu);
-  R = ufr_reconstrucao(eigenface.W(:,1:numEvs), P, eigenface.mu);
+  P = ufr_project(Q, eigenface.W(:,1:numEvs), eigenface.media);
+  R = urf_reconstrucao(eigenface.W(:,1:numEvs), P, eigenface.media);
   comp = ufr_cvtCinza(R, width, height);
   imshow(comp);
   title(sprintf('%i Eigenvectors', numEvs));

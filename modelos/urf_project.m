@@ -1,4 +1,4 @@
-function Y = project(R, S, P)
+function Y = urf_project(R, S, P)
 	%%	Projetar um vetor R em perpendicular a um outro S, passando por um ponto P para melhorar na precisao da media
 	%%
 	%%	Argumentos para:
