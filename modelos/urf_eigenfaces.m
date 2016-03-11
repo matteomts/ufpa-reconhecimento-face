@@ -24,9 +24,9 @@ function model = urf_eigenfaces(X, y, num_eigenfaces)
   model.D = Pca.D;
   model.W = Pca.W;
   model.num_eigenfaces = num_eigenfaces;
-  model.mu = Pca.mu;
+  model.media = Pca.media;
   % project data
-  model.P = model.W'*(X - repmat(Pca.mu, 1, size(X,2)));
+  model.P = model.W'*(X - repmat(Pca.media, 1, size(X,2)));
   % store classes
   model.y = y;
 end
