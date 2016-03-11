@@ -1,31 +1,30 @@
 // baseado na KFoldCV.m
 // nomes de algumas funcoes ainda em ingles pois elas sao de outras equipes, mudaremos no futuro.
-function idx = ufr_resultadoDaValidacao(X, y, k, fun_train, fun_predict, per_fold, print_debug)
+function resultado_validacao = ufr_resultadoDaValidacao(X, y, k, fun_train, fun_predict, per_fold, print_debug)
   %%
-	%%Realiza uma validação cruzada do tipo k-fold 
+	%% Realiza uma validação cruzada pelo método k-fold
 	%%
 	%% There may be a much simpler approach to do a Stratified K-Fold Cross validation, you 
 	%% probably want to look at & translate the scikit-learn approach to MATLAB from:
 	%% https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/cross_validation.py
 	%%
-	%% Args:
-	%%  X [dim x num_data] Dataset a k-fold cross validation is performed on.Banco de dados onde a validação cruzada do tipo K-fold é realizada
-	%%	y	[1 x num_data] Classes corresponding to observations in X.
-	%%  k [1 x 1] number of folds
-	%%  fun_train [function handle] função para construir um modelo (__must__ return a model)
-	%%  fun_predict [function handle] function to get a prediction from a model.
-	%%	per_fold [bool] if per fold, then results are given for each fold (default 1). 
+	%% Argumentos:
+	%%  X [dim x num_data] Dataset onde a validação cruzada é realizada.
+	%%	y	[1 x num_data] Classes correspondentes a observações em x.
+	%%  k [1 x 1] numero de dobras
+	%%  fun_train [function handle] função que constroi um modelo (__deve__ retornar um modelo)
+	%%  fun_predict [function handle] função que obtem uma predição de um modelo.
+	%%	per_fold [bool] se for por dobra, então os resultados são dados para cada dobra (default 1). 
 	%%  print_debug [bool] print debug (default 0)
 	%%
-	%% Retorna:
-	%%  [tp, fp, tn, fn]: resultado da validação cruzada (per fold or accumulated)
-	%% Exemplo:
-	%%  veja exemplo.m
+	%% Returns:
+	%%  [tp, fp, tn, fn]: resultado da validação cruzada (por dobra ou acumulada)
+	%% Example:
+	%%  see example.m
 	%%
-	resultado_da_validacao = [];
-	
-	
-		% seta as opcoes padrao
+	resultado_validacao = [];
+
+	% set default options
 	if ~exist('print_debug')
 		print_debug = 0;
 	end
@@ -34,17 +33,17 @@ function idx = ufr_resultadoDaValidacao(X, y, k, fun_train, fun_predict, per_fol
 		per_fold=0;
 	end
 
-	% embaralha o array (is there a function for this?)
+	% embaralha o array
 	[d idx] = sort(rand(1, size(X,2)));
 	X = X(:,idx);
 	y = y(idx);
 	
-	% guarda o resultado da validacao cruzada
-	tp=0; fp=0; tn=0; fn=0;
+	% guarda o resultado da validação cruzada
+	tp=0; fp=0; tn=0; fn=0;	
 
-  % find the unique classes (TODO make all this independent of any label order)	
-	C = max(y); % significa que y deve ser {1,2,3,...,C}
-  % encontra o número mínimo e máximo de classes por amostra
+  % encontra as  classes unicas	
+	C = max(y); % means y must be {1,2,3,...,C}
+  % encontra o numero maximo e minimo de amostras por classe
   nmin = +inf;
   nmax = -inf;
 	for i = 1:C
@@ -53,19 +52,19 @@ function idx = ufr_resultadoDaValidacao(X, y, k, fun_train, fun_predict, per_fol
     nmin = min(nmin,ni);
     nmax = max(nmax,ni);
   end
-  % constroi o indice das dobras
+  % build fold indices
   foldIndices = zeros(C, nmax);
   for i = 1:C
     idx = find(y==i);
 		foldIndices(i, 1:numel(idx)) = idx;
 	end
-	
-	  % ajuste de k (verifica se há menos de k exemplos em uma classe)
+
+  % adjust k (means there less than k examples in a class)
 	if(nmin<k)
 		k=nmin;
 	end
 	
-	% instâncias por dobra
+	% instances per fold
 	foldSize = floor(nmin/k);
 	
 	% calculate fold indices for Testset A, Trainingset B
@@ -82,41 +81,40 @@ function idx = ufr_resultadoDaValidacao(X, y, k, fun_train, fun_predict, per_fol
 				fflush(stdout);
 			end
 		end
-
+	 	
 		l = i*foldSize+1;
 		h = (i+1)*foldSize;
 		testIdx = foldIndices(:, l:h);
 		trainIdx = foldIndices(:, [1:(l-1), (h+1):nmin]);
 		
-		% forma vermelha to linearizar o vetor novamente
+		% reformata para linearizar o vetor novamente
 		testIdx = reshape(testIdx, 1, numel(testIdx));
 		trainIdx = reshape(trainIdx, 1, numel(trainIdx));
 		
 		% treina um modelo
 		model = fun_train(X(:,trainIdx), y(:,trainIdx));
 		
-		% testa um modelo
+		% testa o modelo
 		for idx=testIdx
-			% avalia o modelo e retorna uma estrutura prevista
+			% evaluate model and return prediction structure
 			prediction = fun_predict(model, X(:,idx));
-			% Se você deseja contar [tn, fn] por favor insira seu código aqui
+			% if you want to count [tn, fn] please add your code here
 			if(prediction == y(idx))
 				tp = tp + 1;
 			else
 				fp = fp + 1;
 			end
 		end
-
-
-		% se você quer salvar os resultados em uma base de dados
+		
+		% se você deseja fazer um log de resultados em uma base por dobra
 		if(per_fold)
-			validation_result = [validation_result; [tp, fp, tn, fn]];
+			resultado_validacao = [resultado_validacao; [tp, fp, tn, fn]];
 			tp=0; fp=0; tn=0; fn=0;
 		end
 	end
 	
-	%ou definir um resultado acumulado
+	% ou setar o resultado acumulado
 	if(~per_fold)
-		validation_result = [tp, fp, tn, fn];
+		resultado_validacao = [tp, fp, tn, fn];
 	end
 end
