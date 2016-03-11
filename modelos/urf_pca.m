@@ -1,4 +1,4 @@
-function PCA = urf_pca(X, num_componentes)
+function model = urf_pca(X, num_componentes)
   % faz a análise de PCA nos vetores em X
   %
   % espera:
